@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Генератор QR кодов</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <main class="container">
+    <div class="layout">
+      <section class="controls">
+        <label class="field">
+          <h1>Генератор QR кодов</h1>
+          <span>Введите ссылку — QR код обновится автоматически</span>
+          <textarea id="text-input" rows="3" placeholder="https://gofmanav.github.io/qr-generator/"></textarea>
+        </label>
+
+        <label class="field">
+          <span>Размер: <output id="size-value">300</output> px</span>
+          <input type="range" id="size-input" min="128" max="1024" step="8" value="300">
+        </label>
+
+        <div class="field">
+          <label for="ecc-input">Уровень коррекции ошибок</label>
+          <select id="ecc-input">
+            <option value="L">L — низкий (~7%)</option>
+            <option value="M" selected>M — средний (~15%)</option>
+            <option value="Q">Q — выше (~25%)</option>
+            <option value="H">H — высокий (~30%)</option>
+          </select>
+          <details class="hint">
+            <summary>Что это и какой выбрать?</summary>
+            <div class="hint-body">
+              <p>Это сколько QR кода может быть повреждено или закрыто, чтобы он всё равно прочитался. Чем выше уровень
+                — тем устойчивее код, но точек становится больше.</p>
+              <ul>
+                <li><b>L</b> — до 7%. Подходит для экрана: мессенджер, письмо, веб-страница.</li>
+                <li><b>M</b> — до 15%. <b>Универсальный вариант — оставьте, если не уверены.</b></li>
+                <li><b>Q</b> — до 25%. Печать на бумаге, наклейках, чеках.</li>
+                <li><b>H</b> — до 30%. Если в центре будет логотип, либо код висит на улице или упаковке.</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+
+        <div class="row">
+          <label class="field">
+            <span>Цвет точек</span>
+            <input type="color" id="dark-input" value="#000000">
+          </label>
+          <label class="field">
+            <span>Цвет фона</span>
+            <input type="color" id="light-input" value="#ffffff">
+          </label>
+        </div>
+      </section>
+
+      <section class="preview">
+        <div id="qr-canvas" class="qr-canvas"></div>
+        <div class="actions">
+          <button id="download-png" type="button" disabled>Скачать PNG</button>
+          <button id="download-jpeg" type="button" disabled>Скачать JPEG</button>
+        </div>
+        <div class="decode-section">
+          <div id="decode-result" class="decode-result" hidden></div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="vendor/qr-code-styling.js"></script>
+  <script src="vendor/jsQR.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>
